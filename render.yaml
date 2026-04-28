@@ -1,11 +1,7 @@
 services:
   - type: web
     name: cardio-risk-assistant
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    env: docker
     envVars:
       - key: OPENAI_API_KEY
         sync: false
-      - key: PYTHON_VERSION
-        value: 3.11
