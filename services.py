@@ -1,16 +1,27 @@
 import os
-import numpy as np
-import cv2
-import tensorflow as tf
-import joblib
-from openai import OpenAI
-from io import BytesIO
-from scipy.signal import find_peaks
-from datetime import datetime
-from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
+import warnings
+import logging
+
+warnings.filterwarnings("ignore", category=UserWarning)
+logging.getLogger("absl").setLevel(logging.ERROR)
+logging.getLogger("tensorflow").setLevel(logging.ERROR)
+
+import numpy as np  # noqa: E402
+import cv2  # noqa: E402
+import tensorflow as tf  # noqa: E402
+import joblib  # noqa: E402
+from openai import OpenAI  # noqa: E402
+from io import BytesIO  # noqa: E402
+from scipy.signal import find_peaks  # noqa: E402
+from datetime import datetime  # noqa: E402
+from reportlab.lib import colors  # noqa: E402
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle  # noqa: E402
+from reportlab.lib.units import inch  # noqa: E402
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer  # noqa: E402
 
 # -------------------------------
 # LOAD MODELS
@@ -44,9 +55,7 @@ CLINICAL_FEATURE_COLS = [
 
 
 def get_ai_suggestion(input_type, data, result):
-    client = OpenAI(
-        api_key=os.environ.get("OPENAI_API_KEY")
-    )
+    client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
     model_name = "gpt-3.5-turbo"
 
     prompt = f"""
