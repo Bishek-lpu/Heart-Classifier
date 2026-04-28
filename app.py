@@ -1,10 +1,7 @@
 import numpy as np
 import cv2
 import pandas as pd
-import os
 from dotenv import load_dotenv
-load_dotenv()
-
 from flask import Flask, request, jsonify, render_template, send_file
 from io import BytesIO
 
@@ -20,6 +17,8 @@ from services import (
     waveform_analysis,
     generate_report_pdf,
 )
+
+load_dotenv()
 
 app = Flask(__name__)
 
